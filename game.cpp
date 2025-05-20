@@ -439,6 +439,9 @@ struct MeshGameObject : GameObject {
 		geometry->Draw();
 		for (auto child : children) child->Draw(state);
 	}
+	~MeshGameObject() {
+		delete geometry;
+	}
 };
 
 class ColumnObstacle : public MeshGameObject {
@@ -732,11 +735,11 @@ public:
 		size = _size;
 		texture = _texture;
 		material = _material;
+		geometry = new Cylinder();
 		setPose(pos, _rotationAxis, 0);
 	}
 	void Animate(float tstart, float tend) {
-		float dt = tend - tstart;
-		geometry = new Cylinder();
+		float dt = tend - tstart;		
 		rotationAngle += rotationSpeed * dt;
 	}
 };
